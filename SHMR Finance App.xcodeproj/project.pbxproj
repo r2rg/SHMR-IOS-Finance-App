@@ -1,0 +1,563 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		5DF25FE62DFCED3A00FBC92A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5DF25FD02DFCED3900FBC92A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5DF25FD72DFCED3900FBC92A;
+			remoteInfo = "SHMR Finance App";
+		};
+		5DF25FF02DFCED3A00FBC92A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5DF25FD02DFCED3900FBC92A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5DF25FD72DFCED3900FBC92A;
+			remoteInfo = "SHMR Finance App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		5DF25FD82DFCED3900FBC92A /* SHMR Finance App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SHMR Finance App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5DF25FE52DFCED3A00FBC92A /* SHMR Finance AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SHMR Finance AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5DF25FEF2DFCED3A00FBC92A /* SHMR Finance AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SHMR Finance AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		5DF25FDA2DFCED3900FBC92A /* SHMR Finance App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "SHMR Finance App";
+			sourceTree = "<group>";
+		};
+		5DF25FE82DFCED3A00FBC92A /* SHMR Finance AppTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "SHMR Finance AppTests";
+			sourceTree = "<group>";
+		};
+		5DF25FF22DFCED3A00FBC92A /* SHMR Finance AppUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "SHMR Finance AppUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5DF25FD52DFCED3900FBC92A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5DF25FE22DFCED3A00FBC92A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5DF25FEC2DFCED3A00FBC92A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5DF25FCF2DFCED3900FBC92A = {
+			isa = PBXGroup;
+			children = (
+				5DF25FDA2DFCED3900FBC92A /* SHMR Finance App */,
+				5DF25FE82DFCED3A00FBC92A /* SHMR Finance AppTests */,
+				5DF25FF22DFCED3A00FBC92A /* SHMR Finance AppUITests */,
+				5DF25FD92DFCED3900FBC92A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5DF25FD92DFCED3900FBC92A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5DF25FD82DFCED3900FBC92A /* SHMR Finance App.app */,
+				5DF25FE52DFCED3A00FBC92A /* SHMR Finance AppTests.xctest */,
+				5DF25FEF2DFCED3A00FBC92A /* SHMR Finance AppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5DF25FD72DFCED3900FBC92A /* SHMR Finance App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5DF25FF92DFCED3A00FBC92A /* Build configuration list for PBXNativeTarget "SHMR Finance App" */;
+			buildPhases = (
+				5DF25FD42DFCED3900FBC92A /* Sources */,
+				5DF25FD52DFCED3900FBC92A /* Frameworks */,
+				5DF25FD62DFCED3900FBC92A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				5DF25FDA2DFCED3900FBC92A /* SHMR Finance App */,
+			);
+			name = "SHMR Finance App";
+			packageProductDependencies = (
+			);
+			productName = "SHMR Finance App";
+			productReference = 5DF25FD82DFCED3900FBC92A /* SHMR Finance App.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5DF25FE42DFCED3A00FBC92A /* SHMR Finance AppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5DF25FFC2DFCED3A00FBC92A /* Build configuration list for PBXNativeTarget "SHMR Finance AppTests" */;
+			buildPhases = (
+				5DF25FE12DFCED3A00FBC92A /* Sources */,
+				5DF25FE22DFCED3A00FBC92A /* Frameworks */,
+				5DF25FE32DFCED3A00FBC92A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5DF25FE72DFCED3A00FBC92A /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				5DF25FE82DFCED3A00FBC92A /* SHMR Finance AppTests */,
+			);
+			name = "SHMR Finance AppTests";
+			packageProductDependencies = (
+			);
+			productName = "SHMR Finance AppTests";
+			productReference = 5DF25FE52DFCED3A00FBC92A /* SHMR Finance AppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5DF25FEE2DFCED3A00FBC92A /* SHMR Finance AppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5DF25FFF2DFCED3A00FBC92A /* Build configuration list for PBXNativeTarget "SHMR Finance AppUITests" */;
+			buildPhases = (
+				5DF25FEB2DFCED3A00FBC92A /* Sources */,
+				5DF25FEC2DFCED3A00FBC92A /* Frameworks */,
+				5DF25FED2DFCED3A00FBC92A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5DF25FF12DFCED3A00FBC92A /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				5DF25FF22DFCED3A00FBC92A /* SHMR Finance AppUITests */,
+			);
+			name = "SHMR Finance AppUITests";
+			packageProductDependencies = (
+			);
+			productName = "SHMR Finance AppUITests";
+			productReference = 5DF25FEF2DFCED3A00FBC92A /* SHMR Finance AppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5DF25FD02DFCED3900FBC92A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					5DF25FD72DFCED3900FBC92A = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					5DF25FE42DFCED3A00FBC92A = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 5DF25FD72DFCED3900FBC92A;
+					};
+					5DF25FEE2DFCED3A00FBC92A = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 5DF25FD72DFCED3900FBC92A;
+					};
+				};
+			};
+			buildConfigurationList = 5DF25FD32DFCED3900FBC92A /* Build configuration list for PBXProject "SHMR Finance App" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5DF25FCF2DFCED3900FBC92A;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 5DF25FD92DFCED3900FBC92A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5DF25FD72DFCED3900FBC92A /* SHMR Finance App */,
+				5DF25FE42DFCED3A00FBC92A /* SHMR Finance AppTests */,
+				5DF25FEE2DFCED3A00FBC92A /* SHMR Finance AppUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5DF25FD62DFCED3900FBC92A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5DF25FE32DFCED3A00FBC92A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5DF25FED2DFCED3A00FBC92A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5DF25FD42DFCED3900FBC92A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5DF25FE12DFCED3A00FBC92A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5DF25FEB2DFCED3A00FBC92A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5DF25FE72DFCED3A00FBC92A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5DF25FD72DFCED3900FBC92A /* SHMR Finance App */;
+			targetProxy = 5DF25FE62DFCED3A00FBC92A /* PBXContainerItemProxy */;
+		};
+		5DF25FF12DFCED3A00FBC92A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5DF25FD72DFCED3900FBC92A /* SHMR Finance App */;
+			targetProxy = 5DF25FF02DFCED3A00FBC92A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		5DF25FF72DFCED3A00FBC92A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = K7V38QTHCJ;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		5DF25FF82DFCED3A00FBC92A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = K7V38QTHCJ;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5DF25FFA2DFCED3A00FBC92A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K7V38QTHCJ;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "name.arthurgalustian.SHMR-Finance-App";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5DF25FFB2DFCED3A00FBC92A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K7V38QTHCJ;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "name.arthurgalustian.SHMR-Finance-App";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		5DF25FFD2DFCED3A00FBC92A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K7V38QTHCJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "name.arthurgalustian.SHMR-Finance-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SHMR Finance App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SHMR Finance App";
+			};
+			name = Debug;
+		};
+		5DF25FFE2DFCED3A00FBC92A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K7V38QTHCJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "name.arthurgalustian.SHMR-Finance-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SHMR Finance App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SHMR Finance App";
+			};
+			name = Release;
+		};
+		5DF260002DFCED3A00FBC92A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K7V38QTHCJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "name.arthurgalustian.SHMR-Finance-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "SHMR Finance App";
+			};
+			name = Debug;
+		};
+		5DF260012DFCED3A00FBC92A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K7V38QTHCJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "name.arthurgalustian.SHMR-Finance-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "SHMR Finance App";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5DF25FD32DFCED3900FBC92A /* Build configuration list for PBXProject "SHMR Finance App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5DF25FF72DFCED3A00FBC92A /* Debug */,
+				5DF25FF82DFCED3A00FBC92A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5DF25FF92DFCED3A00FBC92A /* Build configuration list for PBXNativeTarget "SHMR Finance App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5DF25FFA2DFCED3A00FBC92A /* Debug */,
+				5DF25FFB2DFCED3A00FBC92A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5DF25FFC2DFCED3A00FBC92A /* Build configuration list for PBXNativeTarget "SHMR Finance AppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5DF25FFD2DFCED3A00FBC92A /* Debug */,
+				5DF25FFE2DFCED3A00FBC92A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5DF25FFF2DFCED3A00FBC92A /* Build configuration list for PBXNativeTarget "SHMR Finance AppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5DF260002DFCED3A00FBC92A /* Debug */,
+				5DF260012DFCED3A00FBC92A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5DF25FD02DFCED3900FBC92A /* Project object */;
+}
