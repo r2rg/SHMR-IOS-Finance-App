@@ -48,14 +48,14 @@ extension Transaction {
             let accountId = dictionary["accountId"] as? Int,
             let categoryId = dictionary["categoryId"] as? Int,
             
-                let amountString = dictionary["amount"] as? String,
+            let amountString = dictionary["amount"] as? String,
             let amount = Decimal(string: amountString),
             
-                let transactionDateString = dictionary["transactionDate"] as? String,
+            let transactionDateString = dictionary["transactionDate"] as? String,
             let createdAtString = dictionary["createdAt"] as? String,
             let updatedAtString = dictionary["updatedAt"] as? String,
             
-                let transactionDate = apiDateFormatter.date(from: transactionDateString),
+            let transactionDate = apiDateFormatter.date(from: transactionDateString),
             let createdAt = apiDateFormatter.date(from: createdAtString),
             let updatedAt = apiDateFormatter.date(from: updatedAtString)
         else {
