@@ -12,7 +12,7 @@ struct CustomDatePickerView: View {
     
     var body: some View {
         Text(format(date: $selectedDate.wrappedValue))
-            .foregroundStyle(.primary)
+            .foregroundStyle(.black)
             .padding(.vertical, 8)
             .padding(.horizontal, 12)
             .background(RoundedRectangle(cornerRadius: 8, style: .continuous)

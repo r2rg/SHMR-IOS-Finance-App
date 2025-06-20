@@ -1,8 +1,10 @@
 final class CategoriesService {
     private var categories = [
-        Category(id: 1, name: "Зарплата", emoji: "💰", direction: .income),
-        Category(id: 2, name: "Продукты", emoji: "🛒", direction: .outcome),
-        Category(id: 3, name: "Транспорт", emoji: "🚌", direction: .outcome)
+        Category(id: 1, name: "Аренда", emoji: "🏠", direction: .outcome),
+        Category(id: 2, name: "Одежда", emoji: "👔", direction: .outcome),
+        Category(id: 3, name: "На собачку", emoji: "🐕", direction: .outcome),
+        Category(id: 4, name: "Зарплата", emoji: "🧳", direction: .income),
+        Category(id: 5, name: "Подработка", emoji: "🧳", direction: .income)
     ]
 
     func allCategories() async throws -> [Category] {

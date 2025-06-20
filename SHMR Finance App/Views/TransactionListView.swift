@@ -26,6 +26,7 @@ struct TransactionListView: View {
                 Section("Операции") {
                     ForEach(viewModel.displayedTransactions) { transaction in
                         TransactionView(transaction: transaction, direction: direction, currency: viewModel.currency)
+                            .padding(.vertical, -5)
                     }
                 }
             }

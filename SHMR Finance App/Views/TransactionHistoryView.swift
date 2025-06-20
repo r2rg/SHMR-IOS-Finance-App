@@ -45,9 +45,11 @@ struct TransactionHistoryView: View {
                         }
                     }
                     .tint(.accent)
+                    .padding(.vertical, -5)
 
                     ForEach(viewModel.displayedTransactions) { transaction in
                         TransactionView(transaction: transaction, direction: direction, currency: viewModel.currency)
+                            .padding(.vertical, -5)
                     }
                 }
             }
