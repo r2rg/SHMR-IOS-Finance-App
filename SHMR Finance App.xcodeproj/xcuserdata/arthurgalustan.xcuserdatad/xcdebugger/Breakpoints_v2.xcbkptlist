@@ -20,5 +20,21 @@
             landmarkType = "37">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "80D9138E-6319-4BF4-BC48-91FE717C1CBA"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../../../var/folders/mw/ltks3m3s6qzdcf1pr6n92kvw0000gn/T/swift-generated-sources/@__swiftmacro_16SHMR_Finance_App0026TransactionViewswift_DsAGgfMX45_0_33_0EFB6A6C73EE6FE3C78F4259828A0D35Ll7PreviewfMf_.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1"
+            endingLineNumber = "1"
+            landmarkName = "$s16SHMR_Finance_App0026TransactionViewswift_DsAGgfMX45_0_33_0EFB6A6C73EE6FE3C78F4259828A0D35Ll7PreviewfMf_15PreviewRegistryfMu_"
+            landmarkType = "37">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

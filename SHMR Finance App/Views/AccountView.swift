@@ -23,12 +23,18 @@ struct AccountView: View {
                     }
                     .listRowBackground(Color.accentColor)
                     
-                    LabeledContent("Валюта", value: "₽")
-                        .listRowBackground(Color.lightGreen)
+                    LabeledContent {
+                        Text("₽")
+                    } label: {
+                        Text("Валюта")
+                            .foregroundStyle(.black)
+                    }
+                    .listRowBackground(Color.lightGreen)
                 }
             }
             .listRowSpacing(20)
             .navigationTitle("Мой счёт")
+            .safeAreaPadding(.top)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Редактировать") {

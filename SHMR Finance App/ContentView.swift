@@ -11,11 +11,11 @@ struct ContentView: View {
     var body: some View {
         TabView {
             Group {
-                TransactionsListView()
+                TransactionListView(direction: .outcome)
                     .tabItem {
                         Label("Расходы", image: "ExpensesIcon")
                     }
-                TransactionsListView()
+                TransactionListView(direction: .income)
                     .tabItem {
                         Label("Доходы", image: "IncomeIcon")
                     }
@@ -32,7 +32,7 @@ struct ContentView: View {
                         Label("Настройки", image: "SettingsIcon")
                     }
             }
-            .toolbarBackground(.white, for: .tabBar)
+            .toolbarBackground(.automatic, for: .tabBar)
             .toolbarBackground(.visible, for: .tabBar)
         }
     }
