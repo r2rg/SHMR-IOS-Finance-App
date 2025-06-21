@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct TransactionHistoryView: View {
-    @State private var selectedSort: SortCriteria = .dateAsc
 
     @State private var viewModel = TransactionItemViewModel()
     
@@ -38,18 +37,18 @@ struct TransactionHistoryView: View {
                 .foregroundStyle(.primary)
                 
                 Section("Операции") {
-                    Picker("Сортировка", selection: $selectedSort) {
+                    Picker("Сортировка", selection: $viewModel.selectedSort) {
                         ForEach(SortCriteria.allCases) { type in
                             Text(type.rawValue)
                                 .tag(type)
                         }
                     }
                     .tint(.accent)
-                    .padding(.vertical, -5)
+                    .padding(.vertical, -3)
 
                     ForEach(viewModel.displayedTransactions) { transaction in
                         TransactionView(transaction: transaction, direction: direction, currency: viewModel.currency)
-                            .padding(.vertical, -5)
+                            .padding(.vertical, -3)
                     }
                 }
             }

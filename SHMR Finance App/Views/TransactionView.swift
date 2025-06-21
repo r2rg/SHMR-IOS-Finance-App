@@ -37,6 +37,7 @@ struct TransactionView: View {
                         Text("\(transaction.category.emoji)")
                             .font(.system(size: 14))
                     }
+                    .padding(transaction.transaction.comment != nil ? 0 : -3)
                 }
             }
         }
