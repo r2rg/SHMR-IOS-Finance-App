@@ -5,20 +5,60 @@ final class TransactionsService {
         Transaction(
             id: 101,
             accountId: 1,
-            categoryId: 2,
-            amount: Decimal(string: "750.50")!,
+            categoryId: 1,
+            amount: Decimal(string: "110000.00")!,
             transactionDate: Date(),
-            comment: "Покупка в супермаркете",
+            comment: nil,
             createdAt: Date(),
             updatedAt: Date()
         ),
         Transaction(
             id: 102,
             accountId: 1,
-            categoryId: 1,
+            categoryId: 2,
+            amount: Decimal(string: "120000.00")!,
+            transactionDate: Date(),
+            comment: nil,
+            createdAt: Date(),
+            updatedAt: Date()
+        ),
+        Transaction(
+            id: 103,
+            accountId: 1,
+            categoryId: 3,
+            amount: Decimal(string: "95000.00")!,
+            transactionDate: Date().addingTimeInterval(-86400 * 4),
+            comment: "Джек",
+            createdAt: Date(),
+            updatedAt: Date()
+        ),
+        Transaction(
+            id: 104,
+            accountId: 1,
+            categoryId: 3,
             amount: Decimal(string: "90000.00")!,
-            transactionDate: Date().addingTimeInterval(-86400 * 2),
-            comment: "Зарплата за месяц",
+            transactionDate: Date().addingTimeInterval(-86400 * 5),
+            comment: "Джек",
+            createdAt: Date(),
+            updatedAt: Date()
+        ),
+        Transaction(
+            id: 105,
+            accountId: 1,
+            categoryId: 4,
+            amount: Decimal(string: "99000.00")!,
+            transactionDate: Date(),
+            comment: nil,
+            createdAt: Date(),
+            updatedAt: Date()
+        ),
+        Transaction(
+            id: 106,
+            accountId: 1,
+            categoryId: 5,
+            amount: Decimal(string: "93000.00")!,
+            transactionDate: Date().addingTimeInterval(-86400 * 32),
+            comment: nil,
             createdAt: Date(),
             updatedAt: Date()
         )]
