@@ -28,6 +28,15 @@ struct TransactionHistoryView: View {
                     Text("Конец")
                 }
                 .padding(.vertical, -5)
+                
+                Picker("Сортировка", selection: $viewModel.selectedSort) {
+                    ForEach(SortCriteria.allCases) { type in
+                        Text(type.rawValue)
+                            .tag(type)
+                    }
+                }
+                .tint(.accent)
+                .padding(.vertical, -3)
 
                 LabeledContent {
                     Text("\(viewModel.getSum()) " + "\(viewModel.currency)")
@@ -37,15 +46,6 @@ struct TransactionHistoryView: View {
                 .foregroundStyle(.primary)
                 
                 Section("Операции") {
-                    Picker("Сортировка", selection: $viewModel.selectedSort) {
-                        ForEach(SortCriteria.allCases) { type in
-                            Text(type.rawValue)
-                                .tag(type)
-                        }
-                    }
-                    .tint(.accent)
-                    .padding(.vertical, -3)
-
                     ForEach(viewModel.displayedTransactions) { transaction in
                         TransactionView(transaction: transaction, direction: direction, currency: viewModel.currency)
                             .padding(.vertical, -3)
