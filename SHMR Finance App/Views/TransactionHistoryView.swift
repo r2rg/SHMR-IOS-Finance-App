@@ -18,12 +18,14 @@ struct TransactionHistoryView: View {
             List {
                 LabeledContent {
                     CustomDatePickerView(selectedDate: $viewModel.startDate)
+                        .tint(.accent)
                 } label: {
                     Text("Начало")
                 }
                 .padding(.vertical, -5)
                 LabeledContent {
                     CustomDatePickerView(selectedDate: $viewModel.endDate)
+                        .tint(.accent)
                 } label: {
                     Text("Конец")
                 }

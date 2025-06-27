@@ -19,6 +19,7 @@ struct CustomDatePickerView: View {
                     .foregroundColor(.lightGreen))
             .overlay {
                 DatePicker("Начало", selection: $selectedDate, displayedComponents: [.date])
+                    .environment(\.locale, Locale(identifier: "ru")) 
                     .blendMode(.destinationOver)
             }
     }
