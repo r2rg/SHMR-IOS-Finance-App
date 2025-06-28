@@ -24,5 +24,15 @@ final class BankAccountsService {
                            createdAt: account.createdAt,
                            updatedAt: account.updatedAt)
     }
+    
+    func changeCurrency(to newCurrency: String) async throws {
+        account = BankAccount(id: account.id,
+                           userId: account.userId,
+                           name: account.name,
+                           balance: account.balance,
+                           currency: newCurrency,
+                           createdAt: account.createdAt,
+                           updatedAt: account.updatedAt)
+    }
 }
 
