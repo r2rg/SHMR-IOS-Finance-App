@@ -15,9 +15,16 @@ struct ItemsView: View {
     
     var filteredItems: [Category] {
         if searchText.isEmpty {
-            items ?? [Category]()
+            return items ?? [Category]()
         } else {
-            items?.filter { $0.name.contains(searchText) } ?? [Category]()
+            // префикс + fuzzy search, поиск не чувствителен к регистру
+            // isSimilar - расширение String в Uril\FuzzySearch
+            let searchTextLower = searchText.lowercased()
+            
+            return items?.filter { item in
+                let itemNameLower = item.name.lowercased()
+                return itemNameLower.hasPrefix(searchTextLower) || item.name.isSimilar(to: searchText)
+            } ?? [Category]()
         }
     }
     
