@@ -8,18 +8,23 @@
 import SwiftUI
 
 struct ItemsView: View {
-    let items = [
-        Category(id: 1, name: "Продукты", emoji: "🛒", direction: .outcome),
-        Category(id: 2, name: "Транспорт", emoji: "🚌", direction: .outcome),
-        Category(id: 3, name: "Аптека", emoji: "💜", direction: .outcome)
-    ]
+    let categoriesService = CategoriesService()
+    @State private var items: [Category]?
+    
     @State private var searchText = ""
     
     var filteredItems: [Category] {
         if searchText.isEmpty {
-            items
+            return items ?? [Category]()
         } else {
-            items.filter { $0.name.contains(searchText) }
+            // префикс + fuzzy search, поиск не чувствителен к регистру
+            // isSimilar - расширение String в Uril\FuzzySearch
+            let searchTextLower = searchText.lowercased()
+            
+            return items?.filter { item in
+                let itemNameLower = item.name.lowercased()
+                return itemNameLower.hasPrefix(searchTextLower) || item.name.isSimilar(to: searchText)
+            } ?? [Category]()
         }
     }
     
@@ -43,6 +48,19 @@ struct ItemsView: View {
             }
            .navigationTitle("Мои статьи")
            .searchable(text: $searchText)
+        }
+        .task {
+            if items == nil {
+                await fetchItems()
+            }
+        }
+    }
+    
+    private func fetchItems() async {
+        do {
+            items = try await categoriesService.allCategories()
+        } catch {
+            print("Error " + String(error.localizedDescription))
         }
     }
 }
