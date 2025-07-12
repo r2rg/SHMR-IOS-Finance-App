@@ -8,7 +8,7 @@ struct AccountView: View {
     @State private var account: BankAccount?
     @State private var balanceText: String = ""
 
-    private var bankAccountService = BankAccountsService()
+    private var bankAccountService = BankAccountsService.shared
 
     // Когда я менял цвет тернарным оператором, появлялись проблемы с билдом preview. Несмотря на то что приложение всё равно билдилось и работало без проблем,я поменял код, чтобы pewview работало
     private var balanceRowBG: Color {

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ItemsView: View {
-    let categoriesService = CategoriesService()
+    let categoriesService = CategoriesService.shared
     @State private var items: [Category]?
     
     @State private var searchText = ""

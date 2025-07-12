@@ -1,6 +1,9 @@
 import Foundation
 
 final class BankAccountsService {
+    static let shared = BankAccountsService()
+    
+    private init() {}
     private var account = BankAccount(
         id: 1,
         userId: 1,

@@ -28,9 +28,9 @@ class TransactionItemViewModel {
     private var loadedTransaction = [TransactionViewItem]()
     
     private(set) var transactionViewItems = [TransactionViewItem]()
-    private let transactionsService = TransactionsService()
-    private let categoriesService = CategoriesService()
-    private let bankAccountsService = BankAccountsService()
+    private let transactionsService = TransactionsService.shared
+    private let categoriesService = CategoriesService.shared
+    private let bankAccountsService = BankAccountsService.shared
     
     var startOfToday = Calendar.current.startOfDay(for: Date())
     var endOfToday = Calendar.current.date(byAdding: .second, value: -1, to: Calendar.current.date(byAdding: .day, value: 1, to: Calendar.current.startOfDay(for: Date()))!)!
@@ -81,9 +81,9 @@ class TransactionItemViewModel {
     var displayedTransactions: [TransactionViewItem]{
         switch(selectedSort){
         case .dateAsc:
-            return loadedTransaction.sorted { $0.transaction.createdAt > $1.transaction.createdAt }
+            return loadedTransaction.sorted { $0.transaction.transactionDate > $1.transaction.transactionDate }
         case .dateDesc:
-            return loadedTransaction.sorted { $0.transaction.createdAt < $1.transaction.createdAt }
+            return loadedTransaction.sorted { $0.transaction.transactionDate < $1.transaction.transactionDate }
         case .sumAsc:
             return loadedTransaction.sorted { $0.transaction.amount > $1.transaction.amount }
         case .sumDesc:

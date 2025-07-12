@@ -109,6 +109,21 @@ class AnalysisViewController: UIViewController {
         alertController.addAction(cancelAction)
         present(alertController, animated: true)
     }
+    
+    private func showTransactionEditView(for transaction: Transaction) {
+        let editView = TransactionEditView(mode: .edit, direction: direction, transaction: transaction)
+        let hostingController = UIHostingController(rootView: editView)
+        hostingController.modalPresentationStyle = .fullScreen
+        
+        present(hostingController, animated: true) {
+            Task {
+                try? await self.viewModel.loadTransactions(for: self.direction)
+                await MainActor.run {
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -203,7 +218,17 @@ extension AnalysisViewController: UITableViewDelegate, UITableViewDataSource {
                 isFirst: isFirst,
                 isLast: isLast
             )
+            cell.selectionStyle = .none
             return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        if indexPath.section == 1 {
+            let transaction = viewModel.displayedTransactions[indexPath.row]
+            showTransactionEditView(for: transaction.transaction)
         }
     }
 }
@@ -335,7 +360,7 @@ class OperationTableViewCell: UITableViewCell {
     
     func configure(transaction: TransactionViewItem, direction: Direction, currency: String, percentage: Decimal, isFirst: Bool, isLast: Bool) {
         categoryLabel.text = transaction.category.name
-        amountLabel.text = "\(transaction.transaction.amount) \(currency)"
+        amountLabel.text = "\(transaction.transaction.amount) \(currency) >"
         percentLabel.text = String(format: "%.1f%%", NSDecimalNumber(decimal: percentage).doubleValue)
         emojiLabel.text = String(transaction.category.emoji)
         
