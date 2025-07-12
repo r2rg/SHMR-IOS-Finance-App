@@ -1,6 +1,9 @@
 import Foundation
 
 final class TransactionsService {
+    static let shared = TransactionsService()
+    
+    private init() {}
     private var transactions = [
         Transaction(
             id: 101,
@@ -69,9 +72,9 @@ final class TransactionsService {
 
     func createTransaction(_ transaction: Transaction) async throws {
         guard !transactions.contains(where: {$0.id == transaction.id} ) else {
-            transactions.append(transaction)
-            return
+            throw NSError(domain: "TransactionError", code: 1, userInfo: [NSLocalizedDescriptionKey: "Transaction with this ID already exists"])
         }
+        transactions.append(transaction)
     }
     
     func editTransaction(_ transaction: Transaction) async throws {

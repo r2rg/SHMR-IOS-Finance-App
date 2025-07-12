@@ -14,8 +14,13 @@ struct TransactionView: View {
     
     var body: some View {
         LabeledContent {
-            Text("\(transaction.transaction.amount)" + " \(currency)")
-                .foregroundStyle(.primary)
+            HStack {
+                Text("\(transaction.transaction.amount)" + " \(currency)")
+                    .foregroundStyle(.primary)
+                Image(systemName: "chevron.right")
+                    .foregroundStyle(.gray)
+                    .font(.system(size: 12))
+            }
         } label: {
             Label {
                 VStack {

@@ -10,6 +10,7 @@ import SwiftUI
 struct TransactionHistoryView: View {
 
     @State private var viewModel = TransactionItemViewModel()
+    @State private var selectedTransaction: Transaction?
     
     let direction: Direction
     
@@ -51,14 +52,15 @@ struct TransactionHistoryView: View {
                     ForEach(viewModel.displayedTransactions) { transaction in
                         TransactionView(transaction: transaction, direction: direction, currency: viewModel.currency)
                             .padding(.vertical, -3)
+                            .onTapGesture {
+                                selectedTransaction = transaction.transaction
+                            }
                     }
                 }
             }
             .navigationTitle("Моя история")
             .toolbar {
-                Button {
-                    print("TODO")
-                } label: {
+                NavigationLink(destination: AnalysisViewScreen(direction: direction)) {
                     Image(systemName: "document")
                 }
             }
@@ -88,6 +90,14 @@ struct TransactionHistoryView: View {
                 Task {
                    try await viewModel.loadTransactions(for: direction)
                 }
+            }
+            .sheet(item: $selectedTransaction) { transaction in
+                TransactionEditView(mode: .edit, direction: direction, transaction: transaction)
+                    .onDisappear {
+                        Task {
+                            try? await viewModel.loadTransactions(for: direction)
+                        }
+                    }
             }
         }
     }

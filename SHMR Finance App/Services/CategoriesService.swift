@@ -1,4 +1,7 @@
 final class CategoriesService {
+    static let shared = CategoriesService()
+    
+    private init() {}
     private var categories = [
         Category(id: 1, name: "Аренда", emoji: "🏠", direction: .outcome),
         Category(id: 2, name: "Одежда", emoji: "👔", direction: .outcome),
