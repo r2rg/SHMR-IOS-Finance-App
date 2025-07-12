@@ -56,9 +56,7 @@ struct TransactionHistoryView: View {
             }
             .navigationTitle("Моя история")
             .toolbar {
-                Button {
-                    print("TODO")
-                } label: {
+                NavigationLink(destination: AnalysisViewScreen(direction: direction)) {
                     Image(systemName: "document")
                 }
             }

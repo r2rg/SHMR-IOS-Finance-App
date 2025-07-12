@@ -32,6 +32,20 @@ struct TransactionListView: View {
             }
             .navigationTitle(title)
             .safeAreaPadding(.top)
+            .overlay(alignment: .bottomTrailing) {
+                Button(action: {
+                    //TODO
+                }) {
+                    Image(systemName: "plus")
+                        .font(.system(size: 25))
+                        .foregroundStyle(.white)
+                        .frame(width: 65.0, height: 65.0)
+                        .background(.accent)
+                        .clipShape(Circle())
+                }
+                .padding(.horizontal)
+                .padding(.bottom, 27)
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink(destination: TransactionHistoryView(direction: direction)) {

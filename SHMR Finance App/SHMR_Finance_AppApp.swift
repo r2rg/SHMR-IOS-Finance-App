@@ -9,6 +9,9 @@ import SwiftUI
 
 @main
 struct SHMR_Finance_AppApp: App {
+    init() {
+        UINavigationBar.appearance().backgroundColor = UIColor.systemGroupedBackground
+    }
     var body: some Scene {
         WindowGroup {
             ContentView()
