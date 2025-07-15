@@ -53,8 +53,3 @@ struct ShakeDetector: ViewModifier {
     }
 }
 
-extension View {
-    func onShake(perform action: @escaping () -> Void) -> some View {
-        self.modifier(ShakeDetector(onShake: action))
-    }
-}
