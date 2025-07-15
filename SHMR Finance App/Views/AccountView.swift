@@ -43,7 +43,7 @@ struct AccountView: View {
                     }
                     .listRowBackground(balanceRowBG)
                     
-                    Button {
+                    let extractedExpr: Button<LabeledContent<Text, HStack<TupleView<(Text, (some View)?)>>>> = Button {
                         if viewModel.editing {
                             viewModel.isPresentingCurrencyPicker.toggle()
                         }
@@ -61,6 +61,7 @@ struct AccountView: View {
                                 .foregroundStyle(.black)
                         }
                     }
+                    extractedExpr
                     .listRowBackground(currencyRowBG)
                 }
             }
