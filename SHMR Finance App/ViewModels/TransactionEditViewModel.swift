@@ -9,12 +9,11 @@ import SwiftUI
 
 @Observable
 class TransactionEditViewModel {
-    // MARK: - Input Properties
+    
     let mode: EditMode
     let direction: Direction
     let transaction: Transaction?
 
-    // MARK: - State
     var selectedCategory: Category?
     var amount: String = ""
     var selectedDate: Date = Date()
@@ -27,19 +26,16 @@ class TransactionEditViewModel {
     var account: BankAccount?
     var shouldDismiss: Bool = false
 
-    // MARK: - Services
     private let transactionsService = TransactionsService.shared
     private let categoriesService = CategoriesService.shared
     private let bankAccountsService = BankAccountsService.shared
 
-    // MARK: - Init
     init(mode: EditMode, direction: Direction, transaction: Transaction? = nil) {
         self.mode = mode
         self.direction = direction
         self.transaction = transaction
     }
 
-    // MARK: - Data Loading
     @MainActor
     func loadData() async {
         do {
@@ -58,7 +54,6 @@ class TransactionEditViewModel {
         }
     }
 
-    // MARK: - Formatting & Validation
     func formatAmount(_ input: String) -> String {
         let filtered = input.filter { char in
             char.isNumber || char == Locale.current.decimalSeparator?.first
@@ -88,7 +83,6 @@ class TransactionEditViewModel {
         return true
     }
 
-    // MARK: - Transaction Operations
     func saveTransaction() {
         guard validateFields(),
               let category = selectedCategory,

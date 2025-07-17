@@ -126,7 +126,6 @@ class AnalysisViewController: UIViewController {
     }
 }
 
-// MARK: - UITableViewDelegate, UITableViewDataSource
 extension AnalysisViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int { 
         return 2 
@@ -233,7 +232,6 @@ extension AnalysisViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-// MARK: - OperationTableViewCell
 class OperationTableViewCell: UITableViewCell {
     private let emojiLabel = UILabel()
     private let categoryLabel = UILabel()
@@ -391,7 +389,6 @@ class OperationTableViewCell: UITableViewCell {
     }
 }
 
-// MARK: - AnalysisHeaderCell
 class AnalysisHeaderCell: UITableViewCell {
     private let container = UIView()
     private let stack = UIStackView()
