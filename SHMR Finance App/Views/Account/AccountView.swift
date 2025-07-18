@@ -43,7 +43,7 @@ struct AccountView: View {
                     }
                     .listRowBackground(balanceRowBG)
                     
-                    let extractedExpr: Button<LabeledContent<Text, HStack<TupleView<(Text, (some View)?)>>>> = Button {
+                    Button {
                         if viewModel.editing {
                             viewModel.isPresentingCurrencyPicker.toggle()
                         }
@@ -61,7 +61,6 @@ struct AccountView: View {
                                 .foregroundStyle(.black)
                         }
                     }
-                    extractedExpr
                     .listRowBackground(currencyRowBG)
                 }
             }
@@ -96,6 +95,23 @@ struct AccountView: View {
                 await viewModel.fetchAccount()
             }
         }
+        .overlay {
+            if viewModel.isLoading {
+                ProgressView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color.black.opacity(0.1))
+            }
+        }
+        .alert(isPresented: .constant(viewModel.errorMessage != nil)) {
+            Alert(
+                title: Text("Ошибка"),
+                message: Text(viewModel.errorMessage ?? ""),
+                dismissButton: .default(Text("OK")) {
+                    viewModel.errorMessage = nil
+                }
+            )
+        }
+
     }
     
 }

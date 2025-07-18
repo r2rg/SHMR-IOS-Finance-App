@@ -14,6 +14,8 @@ extension ItemsView {
         var items: [Category]?
         
         var searchText = ""
+        var isLoading: Bool = false
+        var errorMessage: String? = nil
         
         var filteredItems: [Category] {
             if searchText.isEmpty {
@@ -31,11 +33,15 @@ extension ItemsView {
         }
         
         func fetchItems() async {
+            isLoading = true
+            errorMessage = nil
             do {
                 items = try await categoriesService.allCategories()
             } catch {
+                errorMessage = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
                 print("Error " + String(error.localizedDescription))
             }
+            isLoading = false
         }
     }
 }

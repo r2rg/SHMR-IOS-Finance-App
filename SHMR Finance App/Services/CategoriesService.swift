@@ -1,21 +1,16 @@
 final class CategoriesService {
     static let shared = CategoriesService()
-    
+    let client = NetworkClient()
     private init() {}
-    private var categories = [
-        Category(id: 1, name: "Аренда", emoji: "🏠", direction: .outcome),
-        Category(id: 2, name: "Одежда", emoji: "👔", direction: .outcome),
-        Category(id: 3, name: "На собачку", emoji: "🐕", direction: .outcome),
-        Category(id: 4, name: "Зарплата", emoji: "🧳", direction: .income),
-        Category(id: 5, name: "Подработка", emoji: "🧳", direction: .income)
-    ]
 
     func allCategories() async throws -> [Category] {
-        return categories
+        let dtos: [CategoryDTO] = try await client.request(method: "GET", url: "categories")
+        return dtos.compactMap { $0.toDomain() }
     }
     
     func categories(for direction: Direction) async throws -> [Category] {
-        let all = try await allCategories()
-        return all.filter { $0.direction == direction }
+        let isIncome = (direction == .income) ? "true" : "false"
+        let dtos: [CategoryDTO] = try await client.request(method: "GET", url: "categories/type/\(isIncome)")
+        return dtos.compactMap { $0.toDomain() }
     }
 }

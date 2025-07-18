@@ -88,6 +88,22 @@ struct TransactionListView: View {
             }
         }
         .tint(.purple)
+        .overlay {
+            if viewModel.isLoading {
+                ProgressView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color.black.opacity(0.1))
+            }
+        }
+        .alert(isPresented: .constant(viewModel.errorMessage != nil)) {
+            Alert(
+                title: Text("Ошибка"),
+                message: Text(viewModel.errorMessage ?? ""),
+                dismissButton: .default(Text("OK")) {
+                    viewModel.errorMessage = nil
+                }
+            )
+        }
     }
 }
 

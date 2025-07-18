@@ -32,17 +32,23 @@ extension AccountView {
         }
 
         var bankAccountService = BankAccountsService.shared
+        var isLoading: Bool = false
+        var errorMessage: String? = nil
         
         func processedBalance() -> String {
             return formattedBalanceString(for: account?.balance) + " " + (account?.currency ?? "")
         }
         
         func fetchAccount() async {
+            isLoading = true
+            errorMessage = nil
             do {
                 account = try await bankAccountService.getFirstAccount()
             } catch {
+                errorMessage = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
                 print("Error fetching account: \(error.localizedDescription)")
             }
+            isLoading = false
         }
         
         func formattedBalanceString(for balance: Decimal?) -> String {

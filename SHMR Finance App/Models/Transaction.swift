@@ -1,6 +1,6 @@
 import Foundation
 
-struct Transaction: Identifiable {
+struct Transaction: Identifiable, Codable {
     let id: Int
     let accountId: Int
     let categoryId: Int

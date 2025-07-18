@@ -32,6 +32,10 @@ class TransactionItemViewModel {
     private let categoriesService = CategoriesService.shared
     private let bankAccountsService = BankAccountsService.shared
     
+    var isLoading: Bool = false
+    var errorMessage: String? = nil
+    
+    var accountId: Int? = nil
     var startOfToday = Calendar.current.startOfDay(for: Date())
     var endOfToday = Calendar.current.date(byAdding: .second, value: -1, to: Calendar.current.date(byAdding: .day, value: 1, to: Calendar.current.startOfDay(for: Date()))!)!
     var startDate = Calendar.current.date(byAdding: .month, value: -1, to: Calendar.current.startOfDay(for: Date()))!
@@ -42,21 +46,33 @@ class TransactionItemViewModel {
     var currency: String = ""
     
     func loadTodaysTransactions(for direction: Direction) async throws{
+        isLoading = true
+        errorMessage = nil
         do {
-            let allItems = try await load(from: startOfToday, to: endOfToday)
+            let account = try await bankAccountsService.getFirstAccount()
+            let accountId = account.id
+            let allItems = try await load(from: startOfToday, to: endOfToday, accountId: accountId)
             self.loadedTransaction = allItems.filter { $0.category.direction == direction }
         } catch {
+            errorMessage = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
             print("Failed to load: \(error)")
         }
+        isLoading = false
     }
     
     func loadTransactions(for direction: Direction) async throws{
+        isLoading = true
+        errorMessage = nil
         do {
-            let allItems = try await load(from: startDate, to: endDate)
+            let account = try await bankAccountsService.getFirstAccount()
+            let accountId = account.id
+            let allItems = try await load(from: startDate, to: endDate, accountId: accountId)
             self.loadedTransaction = allItems.filter { $0.category.direction == direction }
         } catch {
+            errorMessage = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
             print("Failed to load: \(error)")
         }
+        isLoading = false
     }
     
     func getSum() -> Decimal{
@@ -91,8 +107,8 @@ class TransactionItemViewModel {
         }
     }
     
-    private func load(from startDate: Date, to endDate: Date) async throws -> [TransactionViewItem] {
-        let transactions = try await transactionsService.getTransactions(from: startDate, to: endDate)
+    private func load(from startDate: Date, to endDate: Date, accountId: Int) async throws -> [TransactionViewItem] {
+        let transactions = try await transactionsService.getTransactions(accountId: accountId, from: startDate, to: endDate)
         let categories = try await categoriesService.allCategories()
         
         let categoriesById = Dictionary(uniqueKeysWithValues: categories.map{ ($0.id, $0) })

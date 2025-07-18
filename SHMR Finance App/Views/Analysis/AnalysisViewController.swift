@@ -5,6 +5,9 @@
 //  Created by Артур Галустян on 21.06.2025.
 //
 
+// UICollectionView, UICollectionViewCompsitionalLayout, UICollectionViewListConfigration - Layout
+// UICollectionViewDiffableDataSource, UICollectionViwCellRegistraion, UIContentView, UIReusableView
+
 import UIKit
 import SwiftUI
 
@@ -12,6 +15,7 @@ class AnalysisViewController: UIViewController {
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
     private let viewModel = TransactionItemViewModel()
     private let direction: Direction
+    private var loadingOverlay: UIView?
     
     init(direction: Direction) {
         self.direction = direction
@@ -54,16 +58,19 @@ class AnalysisViewController: UIViewController {
     }
     
     private func loadData() {
+        setLoading(true)
         Task {
             do {
                 try await viewModel.loadTransactions(for: direction)
                 await viewModel.getCurrency()
                 await MainActor.run {
                     self.tableView.reloadData()
+                    self.setLoading(false)
                 }
             } catch {
                 await MainActor.run {
                     self.showErrorAlert(message: "Failed to load data: \(error.localizedDescription)")
+                    self.setLoading(false)
                 }
             }
         }
@@ -111,17 +118,54 @@ class AnalysisViewController: UIViewController {
     }
     
     private func showTransactionEditView(for transaction: Transaction) {
-        let editView = TransactionEditView(mode: .edit, direction: direction, transaction: transaction)
-        let hostingController = UIHostingController(rootView: editView)
-        hostingController.modalPresentationStyle = .fullScreen
-        
-        present(hostingController, animated: true) {
-            Task {
-                try? await self.viewModel.loadTransactions(for: self.direction)
-                await MainActor.run {
-                    self.tableView.reloadData()
+        let editView = TransactionEditView(
+            mode: .edit,
+            direction: direction,
+            transaction: transaction,
+            onDismiss: { [weak self] in
+                guard let self = self else { return }
+                Task {
+                    try? await self.viewModel.loadTransactions(for: self.direction)
+                    await MainActor.run {
+                        self.tableView.reloadData()
+                    }
                 }
             }
+        )
+        let hostingController = UIHostingController(rootView: editView)
+        hostingController.modalPresentationStyle = UIModalPresentationStyle.fullScreen
+        present(hostingController, animated: true)
+    }
+    
+    private func showLoadingOverlay() {
+        guard loadingOverlay == nil else { return }
+        let overlay = UIView(frame: view.bounds)
+        overlay.backgroundColor = UIColor.black.withAlphaComponent(0.1)
+        overlay.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+        let activity = UIActivityIndicatorView(style: .large)
+        activity.translatesAutoresizingMaskIntoConstraints = false
+        overlay.addSubview(activity)
+        NSLayoutConstraint.activate([
+            activity.centerXAnchor.constraint(equalTo: overlay.centerXAnchor),
+            activity.centerYAnchor.constraint(equalTo: overlay.centerYAnchor)
+        ])
+        activity.startAnimating()
+
+        view.addSubview(overlay)
+        loadingOverlay = overlay
+    }
+
+    private func hideLoadingOverlay() {
+        loadingOverlay?.removeFromSuperview()
+        loadingOverlay = nil
+    }
+
+    private func setLoading(_ loading: Bool) {
+        if loading {
+            showLoadingOverlay()
+        } else {
+            hideLoadingOverlay()
         }
     }
 }
