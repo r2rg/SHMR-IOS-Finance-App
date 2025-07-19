@@ -95,6 +95,17 @@ struct AccountView: View {
                 await viewModel.fetchAccount()
             }
         }
+        .onAppear {
+            viewModel.refreshAccountFromCache()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .accountBalanceChanged)) { _ in
+            viewModel.refreshAccountFromCache()
+        }
+        .onReceive(Timer.publish(every: 5, on: .main, in: .common).autoconnect()) { _ in
+            if !viewModel.isLoading {
+                viewModel.refreshAccountFromCache()
+            }
+        }
         .overlay {
             if viewModel.isLoading {
                 ProgressView()

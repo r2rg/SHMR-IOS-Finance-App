@@ -44,4 +44,18 @@ extension TransactionRequestDTO {
         self.transactionDate = transaction.transactionDate
         self.comment = transaction.comment
     }
+
+    func toDomain(id: Int, createdAt: Date = Date(), updatedAt: Date = Date()) -> Transaction? {
+        guard let amountDecimal = Decimal(string: amount) else { return nil }
+        return Transaction(
+            id: id,
+            accountId: accountId,
+            categoryId: categoryId,
+            amount: amountDecimal,
+            transactionDate: transactionDate,
+            comment: comment,
+            createdAt: createdAt,
+            updatedAt: updatedAt
+        )
+    }
 }

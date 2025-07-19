@@ -23,7 +23,6 @@ extension AccountView {
                 if let sepRange = sanitized.range(of: separator) {
                     let fractionalPart = sanitized[sepRange.upperBound...]
                     if fractionalPart.count > 2 {
-                        // Revert to previous valid value
                         balanceText = previousBalanceText
                         return
                     }
@@ -46,9 +45,30 @@ extension AccountView {
                 account = try await bankAccountService.getFirstAccount()
             } catch {
                 errorMessage = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
-                print("Error fetching account: \(error.localizedDescription)")
             }
             isLoading = false
+        }
+        
+        @MainActor func refreshAccountFromCache() {
+            Task {
+                do {
+                    let currentBalance = try await bankAccountService.calculateCurrentBalance()
+                    if let currentAccount = bankAccountService.getCurrentAccount() {
+                        let updatedAccount = BankAccount(
+                            id: currentAccount.id,
+                            userId: currentAccount.userId,
+                            name: currentAccount.name,
+                            balance: currentBalance,
+                            currency: currentAccount.currency,
+                            createdAt: currentAccount.createdAt,
+                            updatedAt: Date()
+                        )
+                        account = updatedAccount
+                    }
+                } catch {
+                    print("Error refreshing account balance: \(error)")
+                }
+            }
         }
         
         func formattedBalanceString(for balance: Decimal?) -> String {
@@ -100,7 +120,9 @@ extension AccountView {
                     try await bankAccountService.changeBalance(to: newBalance)
                     await fetchAccount()
                 } catch {
-                    print("Error updating balance: \(error)")
+                    await MainActor.run {
+                        errorMessage = error.localizedDescription
+                    }
                 }
             }
         }

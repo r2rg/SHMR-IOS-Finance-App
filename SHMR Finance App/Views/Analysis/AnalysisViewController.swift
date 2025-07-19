@@ -288,6 +288,14 @@ class OperationTableViewCell: UITableViewCell {
     private let separator = UIView()
     private let backgroundContainer = UIView()
     
+    private func formattedAmount(_ amount: Decimal) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
+        return formatter.string(from: amount as NSDecimalNumber) ?? "\(amount)"
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()

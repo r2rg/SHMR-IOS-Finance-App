@@ -8,32 +8,44 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject private var networkStatus = NetworkStatusManager.shared
     var body: some View {
-        TabView {
-            Group {
-                TransactionListView(direction: .outcome)
-                    .tabItem {
-                        Label("Расходы", image: "ExpensesIcon")
-                    }
-                TransactionListView(direction: .income)
-                    .tabItem {
-                        Label("Доходы", image: "IncomeIcon")
-                    }
-                AccountView()
-                    .tabItem {
-                        Label("Счёт", image: "AccountIcon")
-                    }
-                ItemsView()
-                    .tabItem {
-                        Label("Статьи", image: "ItemsIcon")
-                    }
-                SettingsView()
-                    .tabItem {
-                        Label("Настройки", image: "SettingsIcon")
-                    }
+        VStack(spacing: 0) {
+            if networkStatus.isOffline {
+                Text("Offline mode")
+                    .frame(maxWidth: .infinity)
+                    .padding(8)
+                    .background(Color.orange)
+                    .foregroundColor(.white)
+                    .font(.headline)
+                    .transition(.move(edge: .top))
             }
-            .toolbarBackground(.automatic, for: .tabBar)
-            .toolbarBackground(.visible, for: .tabBar)
+            TabView {
+                Group {
+                    TransactionListView(direction: .outcome)
+                        .tabItem {
+                            Label("Расходы", image: "ExpensesIcon")
+                        }
+                    TransactionListView(direction: .income)
+                        .tabItem {
+                            Label("Доходы", image: "IncomeIcon")
+                        }
+                    AccountView()
+                        .tabItem {
+                            Label("Счёт", image: "AccountIcon")
+                        }
+                    ItemsView()
+                        .tabItem {
+                            Label("Статьи", image: "ItemsIcon")
+                        }
+                    SettingsView()
+                        .tabItem {
+                            Label("Настройки", image: "SettingsIcon")
+                        }
+                }
+                .toolbarBackground(.automatic, for: .tabBar)
+                .toolbarBackground(.visible, for: .tabBar)
+            }
         }
     }
 }

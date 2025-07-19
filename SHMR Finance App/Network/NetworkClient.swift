@@ -41,8 +41,9 @@ enum NetworkError: Error, LocalizedError {
 }
 
 struct NetworkClient {
-    private var bearerToken = "Bearer <TOKEN>"
+    private var bearerToken = "Bearer BBIbDTqBJhXzUBuH9jwvgIkV"
     private var baseUrl = "https://shmr-finance.ru/api/v1/"
+    private let timeout: TimeInterval = 15.0
     
     private var encoder: JSONEncoder = {
         let anEncoder = JSONEncoder()
@@ -76,7 +77,7 @@ struct NetworkClient {
         body: Request?
     ) async throws -> Response {
         let requestUrl = baseUrl + url
-        var request = URLRequest(url: URL(string: requestUrl)!,timeoutInterval: Double.infinity)
+        var request = URLRequest(url: URL(string: requestUrl)!, timeoutInterval: timeout)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue(bearerToken, forHTTPHeaderField: "Authorization")
 
@@ -105,7 +106,7 @@ struct NetworkClient {
         url: String
     ) async throws -> Response {
         let requestUrl = baseUrl + url
-        var request = URLRequest(url: URL(string: requestUrl)!,timeoutInterval: Double.infinity)
+        var request = URLRequest(url: URL(string: requestUrl)!, timeoutInterval: timeout)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue(bearerToken, forHTTPHeaderField: "Authorization")
 
@@ -131,7 +132,7 @@ struct NetworkClient {
         body: Request?
     ) async throws {
         let requestUrl = baseUrl + url
-        var request = URLRequest(url: URL(string: requestUrl)!,timeoutInterval: Double.infinity)
+        var request = URLRequest(url: URL(string: requestUrl)!, timeoutInterval: timeout)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue(bearerToken, forHTTPHeaderField: "Authorization")
 
@@ -139,7 +140,7 @@ struct NetworkClient {
         if let body = body {
             let parameters = try encoder.encode(body)
             request.httpBody = parameters
-            print(String(data: parameters, encoding: .utf8))
+            print(String(data: parameters, encoding: .utf8) as Any)
         }
         let (data, response) = try await URLSession.shared.data(for: request)
         guard let httpResponse = response as? HTTPURLResponse else {
@@ -155,7 +156,7 @@ struct NetworkClient {
         url: String,
     ) async throws {
         let requestUrl = baseUrl + url
-        var request = URLRequest(url: URL(string: requestUrl)!,timeoutInterval: Double.infinity)
+        var request = URLRequest(url: URL(string: requestUrl)!, timeoutInterval: timeout)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue(bearerToken, forHTTPHeaderField: "Authorization")
 
