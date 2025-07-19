@@ -75,6 +75,7 @@ struct TransactionHistoryView: View {
                 await viewModel.getCurrency()
             }
             .onChange(of: viewModel.startDate) { oldValue, newValue in
+                //viewModel.startDateChanged(startDate)
                 if newValue > viewModel.endDate {
                     let nextDay = Calendar.current.date(byAdding: .day, value: 1, to: newValue)!
                     viewModel.endDate = Calendar.current.date(byAdding: .second, value: -1, to: nextDay)!
@@ -98,6 +99,13 @@ struct TransactionHistoryView: View {
                             try? await viewModel.loadTransactions(for: direction)
                         }
                     }
+            }
+        }
+        .overlay {
+            if viewModel.isLoading {
+                ProgressView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color.black.opacity(0.1))
             }
         }
     }

@@ -10,9 +10,11 @@ import SwiftUI
 struct TransactionEditView: View {
     @Environment(\.dismiss) private var dismiss
     @State var viewModel: TransactionEditViewModel
+    var onDismiss: (() -> Void)? = nil
 
-    init(mode: EditMode, direction: Direction, transaction: Transaction? = nil) {
+    init(mode: EditMode, direction: Direction, transaction: Transaction? = nil, onDismiss: (() -> Void)? = nil) {
         _viewModel = State(wrappedValue: TransactionEditViewModel(mode: mode, direction: direction, transaction: transaction))
+        self.onDismiss = onDismiss
     }
 
     var body: some View {
@@ -92,7 +94,9 @@ struct TransactionEditView: View {
 
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(viewModel.mode == .edit ? "Сохранить" : "Создать") {
-                        viewModel.saveTransaction()
+                        Task {
+                            await viewModel.saveTransaction()
+                        }
                     }
                 }
             }
@@ -111,7 +115,7 @@ struct TransactionEditView: View {
             .alert("Заполните все поля", isPresented: $viewModel.showingValidationAlert) {
                 Button("OK") { }
             } message: {
-                Text("Пожалуйста, заполните все обязательные поля")
+                Text(viewModel.validationMessage)
             }
             .task {
                 await viewModel.loadData()
@@ -119,8 +123,25 @@ struct TransactionEditView: View {
             .onChange(of: viewModel.shouldDismiss) { _, newValue in
                 if newValue {
                     dismiss()
+                    onDismiss?()
                 }
             }
+        }
+        .overlay {
+            if viewModel.isLoading{
+                ProgressView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color.black.opacity(0.1))
+            }
+        }
+        .alert(isPresented: .constant(viewModel.errorMessage != nil)) {
+            Alert(
+                title: Text("Ошибка"),
+                message: Text(viewModel.errorMessage ?? ""),
+                dismissButton: .default(Text("OK")) {
+                    viewModel.errorMessage = nil
+                }
+            )
         }
     }
 }

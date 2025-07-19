@@ -6,9 +6,19 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct SHMR_Finance_AppApp: App {
+    static let sharedModelContainer: ModelContainer = {
+        let schema = Schema([
+            TransactionModel.self,
+            BankAccountModel.self,
+            CategoryModel.self,
+            BackupOperationModel.self
+        ])
+        return try! ModelContainer(for: schema)
+    }()
     init() {
         UINavigationBar.appearance().backgroundColor = UIColor.systemGroupedBackground
     }

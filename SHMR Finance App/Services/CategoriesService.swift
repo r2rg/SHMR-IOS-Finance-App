@@ -1,21 +1,33 @@
+@MainActor
 final class CategoriesService {
     static let shared = CategoriesService()
-    
-    private init() {}
-    private var categories = [
-        Category(id: 1, name: "Аренда", emoji: "🏠", direction: .outcome),
-        Category(id: 2, name: "Одежда", emoji: "👔", direction: .outcome),
-        Category(id: 3, name: "На собачку", emoji: "🐕", direction: .outcome),
-        Category(id: 4, name: "Зарплата", emoji: "🧳", direction: .income),
-        Category(id: 5, name: "Подработка", emoji: "🧳", direction: .income)
-    ]
+    let client = NetworkClient()
+    private let localStorage: SwiftDataCategoriesStorage
+    private init() {
+        let container = SHMR_Finance_AppApp.sharedModelContainer
+        self.localStorage = SwiftDataCategoriesStorage(container: container)
+    }
 
     func allCategories() async throws -> [Category] {
-        return categories
+        do {
+            let dtos: [CategoryDTO] = try await client.request(method: "GET", url: "categories")
+            let categories = dtos.compactMap { $0.toDomain() }
+            try await localStorage.updateCategories(categories)
+            return categories
+        } catch {
+            return try await localStorage.fetchAllCategories()
+        }
     }
     
     func categories(for direction: Direction) async throws -> [Category] {
-        let all = try await allCategories()
-        return all.filter { $0.direction == direction }
+        do {
+            let isIncome = (direction == .income) ? "true" : "false"
+            let dtos: [CategoryDTO] = try await client.request(method: "GET", url: "categories/type/\(isIncome)")
+            let categories = dtos.compactMap { $0.toDomain() }
+            try await localStorage.updateCategories(categories)
+            return categories
+        } catch {
+            return try await localStorage.fetchCategories(for: direction)
+        }
     }
 }

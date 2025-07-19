@@ -22,9 +22,12 @@ class TransactionEditViewModel {
     var showingCategoryPicker = false
     var showingAmountAlert = false
     var showingValidationAlert = false
+    var validationMessage: String = "Пожалуйста, заполните все обязательные поля"
     var categories: [Category] = []
     var account: BankAccount?
     var shouldDismiss: Bool = false
+    var isLoading: Bool = false
+    var errorMessage: String? = nil
 
     private let transactionsService = TransactionsService.shared
     private let categoriesService = CategoriesService.shared
@@ -44,7 +47,7 @@ class TransactionEditViewModel {
 
             if let transaction = transaction {
                 selectedCategory = categories.first { $0.id == transaction.categoryId }
-                amount = String(describing: transaction.amount)
+                amount = String(format: "%.2f", NSDecimalNumber(decimal: transaction.amount).doubleValue)
                 selectedDate = transaction.transactionDate
                 selectedTime = transaction.transactionDate
                 comment = transaction.comment ?? ""
@@ -55,106 +58,152 @@ class TransactionEditViewModel {
     }
 
     func formatAmount(_ input: String) -> String {
+        var hasFoundSeparator = false
         let filtered = input.filter { char in
-            char.isNumber || char == Locale.current.decimalSeparator?.first
+            if char.isNumber { return true }
+            if (char == "." || char == ",") && !hasFoundSeparator {
+                hasFoundSeparator = true
+                return true
+            }
+            return false
         }
-        let separator = Locale.current.decimalSeparator ?? "."
-        let components = filtered.components(separatedBy: separator)
-        if components.count > 2 {
-            let firstPart = components[0]
-            let secondPart = components.dropFirst().joined()
-            return firstPart + separator + secondPart
+        let localeSeparator = Locale.current.decimalSeparator ?? "."
+        if localeSeparator == "," {
+            return filtered.replacingOccurrences(of: ".", with: ",")
+        } else {
+            return filtered.replacingOccurrences(of: ",", with: ".")
         }
-        return filtered
     }
 
     func validateFields() -> Bool {
-        guard selectedCategory != nil,
-              !amount.isEmpty else {
+        guard selectedCategory != nil else {
+            validationMessage = "Пожалуйста, выберите статью"
             showingValidationAlert = true
             return false
         }
+        
+        guard !amount.isEmpty else {
+            validationMessage = "Пожалуйста, введите сумму"
+            showingValidationAlert = true
+            return false
+        }
+        
         let formatter = NumberFormatter()
         formatter.locale = Locale.current
-        guard let _ = formatter.number(from: amount) else {
+        formatter.numberStyle = .decimal
+        
+        guard let number = formatter.number(from: amount) else {
+            validationMessage = "Пожалуйста, введите корректную сумму"
             showingValidationAlert = true
             return false
         }
+        
+        guard number.doubleValue > 0 else {
+            validationMessage = "Сумма должна быть больше нуля"
+            showingValidationAlert = true
+            return false
+        }
+        
         return true
     }
-
-    func saveTransaction() {
+    
+    @MainActor
+    func saveTransaction() async {
         guard validateFields(),
-              let category = selectedCategory,
-              let account = account else {
+              let category = selectedCategory else {
             return
         }
+        
+        guard let account = self.account else {
+            errorMessage = "Аккаунт не был загружен. Пожалуйста, попробуйте снова."
+            return
+        }
+
         let formatter = NumberFormatter()
         formatter.locale = Locale.current
-        guard let number = formatter.number(from: amount),
-              let amountDecimal = Decimal(string: number.stringValue) else {
-            showingValidationAlert = true
+        formatter.numberStyle = .decimal
+        guard let number = formatter.number(from: amount) else {
+            errorMessage = "Пожалуйста, введите корректную сумму"
+            isLoading = false
             return
         }
-        Task {
-            do {
-                let combinedDateTime = Calendar.current.date(
-                    bySettingHour: Calendar.current.component(.hour, from: selectedTime),
-                    minute: Calendar.current.component(.minute, from: selectedTime),
-                    second: 0,
-                    of: selectedDate
-                ) ?? selectedDate
-                if mode == .edit, let transaction = transaction {
-                    let updatedTransaction = Transaction(
-                        id: transaction.id,
-                        accountId: transaction.accountId,
-                        categoryId: category.id,
-                        amount: amountDecimal,
-                        transactionDate: combinedDateTime,
-                        comment: comment.isEmpty ? nil : comment,
-                        createdAt: transaction.createdAt,
-                        updatedAt: Date()
-                    )
-                    try await transactionsService.editTransaction(updatedTransaction)
+        
+        let amountDecimal = Decimal(string: number.stringValue) ?? Decimal(number.doubleValue)
+
+        isLoading = true
+        errorMessage = nil
+        
+        do {
+                let calendar = Calendar.current
+
+                let datePortion = calendar.dateComponents([.year, .month, .day], from: selectedDate)
+                
+                let timePortion = calendar.dateComponents([.hour, .minute], from: selectedTime)
+
+                var finalComponents = DateComponents()
+                finalComponents.year = datePortion.year
+                finalComponents.month = datePortion.month
+                finalComponents.day = datePortion.day
+                finalComponents.hour = timePortion.hour
+                finalComponents.minute = timePortion.minute
+                
+                finalComponents.second = 0
+                finalComponents.nanosecond = 0
+                
+                guard let combinedDateTime = calendar.date(from: finalComponents) else {
+                    errorMessage = "Не удалось сформировать дату."
+                    isLoading = false
+                    return
+                }
+
+            if mode == .edit, let transaction = transaction {
+                let updatedTransaction = Transaction(
+                    id: transaction.id,
+                    accountId: account.id,
+                    categoryId: category.id,
+                    amount: amountDecimal,
+                    transactionDate: combinedDateTime,
+                    comment: comment.isEmpty ? nil : comment,
+                    createdAt: transaction.createdAt,
+                    updatedAt: Date()
+                )
+                _ = try await transactionsService.editTransaction(updatedTransaction)
+            } else {
+                let transactionDTO = TransactionRequestDTO(
+                    accountId: account.id,
+                    categoryId: category.id,
+                    amount: amount,
+                    transactionDate: combinedDateTime,
+                    comment: comment.isEmpty ? nil : comment
+                )
+                try await transactionsService.createTransaction(dto: transactionDTO)
+            }
+            
+            self.shouldDismiss = true
+            
+        } catch {
+            let isNetworkUnavailableError = isNetworkUnavailableError(error)
+            
+            if isNetworkUnavailableError {
+                self.shouldDismiss = true
+            } else {
+                if let networkError = error as? NetworkError {
+                    errorMessage = networkError.errorDescription
                 } else {
-                    let newId = generateUniqueId()
-                    let newTransaction = Transaction(
-                        id: newId,
-                        accountId: account.id,
-                        categoryId: category.id,
-                        amount: amountDecimal,
-                        transactionDate: combinedDateTime,
-                        comment: comment.isEmpty ? nil : comment,
-                        createdAt: combinedDateTime,
-                        updatedAt: combinedDateTime
-                    )
-                    try await transactionsService.createTransaction(newTransaction)
-                }
-                await MainActor.run {
-                    self.shouldDismiss = true
-                }
-            } catch {
-                print("Failed to save transaction: \(error)")
-                await MainActor.run {
-                    self.showingAmountAlert = true
+                    errorMessage = error.localizedDescription
                 }
             }
         }
-    }
-
-    func generateUniqueId() -> Int {
-        let existingIds = Set([101, 102, 103, 104, 105, 106])
-        var newId = 1000
-        while existingIds.contains(newId) {
-            newId += 1
-        }
-        return newId
+        
+        isLoading = false
     }
 
     func deleteTransaction() {
         guard let transaction = transaction else {
             return
         }
+        isLoading = true
+        errorMessage = nil
         Task {
             do {
                 try await transactionsService.deleteTransaction(byId: transaction.id)
@@ -162,11 +211,50 @@ class TransactionEditViewModel {
                     self.shouldDismiss = true
                 }
             } catch {
-                print("Failed to delete transaction: \(error)")
-                await MainActor.run {
-                    self.showingAmountAlert = true
+                let isNetworkUnavailableError = isNetworkUnavailableError(error)
+                
+                if isNetworkUnavailableError {
+                    await MainActor.run {
+                        self.shouldDismiss = true
+                    }
+                } else {
+                    errorMessage = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
+                    print("Failed to delete transaction: \(error)")
+                    await MainActor.run {
+                        self.showingAmountAlert = true
+                    }
                 }
             }
+            isLoading = false
         }
+    }
+    
+    private func isNetworkUnavailableError(_ error: Error) -> Bool {
+        if let networkError = error as? NetworkError {
+            switch networkError {
+            case .unknown(let underlyingError):
+                let nsError = underlyingError as NSError
+                return nsError.domain == NSURLErrorDomain && (
+                    nsError.code == NSURLErrorNotConnectedToInternet ||
+                    nsError.code == NSURLErrorNetworkConnectionLost ||
+                    nsError.code == NSURLErrorTimedOut ||
+                    nsError.code == NSURLErrorCannotConnectToHost ||
+                    nsError.code == NSURLErrorCannotFindHost
+                )
+            case .httpError(let statusCode, _):
+                return false
+            case .decodingError:
+                return false
+            }
+        }
+        
+        let nsError = error as NSError
+        return nsError.domain == NSURLErrorDomain && (
+            nsError.code == NSURLErrorNotConnectedToInternet ||
+            nsError.code == NSURLErrorNetworkConnectionLost ||
+            nsError.code == NSURLErrorTimedOut ||
+            nsError.code == NSURLErrorCannotConnectToHost ||
+            nsError.code == NSURLErrorCannotFindHost
+        )
     }
 }
