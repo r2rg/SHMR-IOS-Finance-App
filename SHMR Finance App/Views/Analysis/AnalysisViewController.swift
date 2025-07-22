@@ -185,14 +185,14 @@ extension AnalysisViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 { 
-            return 188 
+            return 178
         }
         return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return 188
+            return 178
         }
         return 56
     }
@@ -288,6 +288,8 @@ class OperationTableViewCell: UITableViewCell {
     private let separator = UIView()
     private let backgroundContainer = UIView()
     
+    private let chevronImageView = UIImageView()
+
     private func formattedAmount(_ amount: Decimal) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
@@ -301,8 +303,8 @@ class OperationTableViewCell: UITableViewCell {
         setupUI()
     }
     
-    required init?(coder: NSCoder) { 
-        fatalError("init(coder:) has not been implemented") 
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func setupUI() {
@@ -351,6 +353,11 @@ class OperationTableViewCell: UITableViewCell {
         percentLabel.numberOfLines = 1
         percentLabel.lineBreakMode = .byTruncatingTail
         percentLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        chevronImageView.image = UIImage(systemName: "chevron.right")
+        chevronImageView.tintColor = .tertiaryLabel
+        chevronImageView.contentMode = .scaleAspectFit
+        chevronImageView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func setupStacks() {
@@ -368,8 +375,8 @@ class OperationTableViewCell: UITableViewCell {
         rightStack.translatesAutoresizingMaskIntoConstraints = false
         rightStack.addArrangedSubview(percentLabel)
         rightStack.addArrangedSubview(amountLabel)
-        rightStack.setContentHuggingPriority(.required, for: .horizontal)
-        rightStack.setContentCompressionResistancePriority(.required, for: .horizontal)
+        rightStack.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        rightStack.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         
         hStack.axis = .horizontal
         hStack.alignment = .center
@@ -378,6 +385,8 @@ class OperationTableViewCell: UITableViewCell {
         hStack.addArrangedSubview(emojiLabel)
         hStack.addArrangedSubview(vStack)
         hStack.addArrangedSubview(rightStack)
+        
+        hStack.addArrangedSubview(chevronImageView)
         
         separator.backgroundColor = UIColor.systemGray5
         separator.translatesAutoresizingMaskIntoConstraints = false
@@ -395,7 +404,10 @@ class OperationTableViewCell: UITableViewCell {
             
             emojiLabel.widthAnchor.constraint(equalToConstant: 30),
             emojiLabel.heightAnchor.constraint(equalToConstant: 30),
-            rightStack.widthAnchor.constraint(equalToConstant: 90),
+            
+            chevronImageView.widthAnchor.constraint(equalToConstant: 8),
+            chevronImageView.heightAnchor.constraint(equalToConstant: 13),
+            
             hStack.leadingAnchor.constraint(equalTo: backgroundContainer.leadingAnchor, constant: 16),
             hStack.trailingAnchor.constraint(equalTo: backgroundContainer.trailingAnchor, constant: -16),
             hStack.topAnchor.constraint(equalTo: backgroundContainer.topAnchor, constant: 8),
@@ -410,7 +422,9 @@ class OperationTableViewCell: UITableViewCell {
     
     func configure(transaction: TransactionViewItem, direction: Direction, currency: String, percentage: Decimal, isFirst: Bool, isLast: Bool) {
         categoryLabel.text = transaction.category.name
-        amountLabel.text = "\(transaction.transaction.amount) \(currency) >"
+        
+        amountLabel.text = "\(transaction.transaction.amount) \(currency)"
+        
         percentLabel.text = String(format: "%.1f%%", NSDecimalNumber(decimal: percentage).doubleValue)
         emojiLabel.text = String(transaction.category.emoji)
         

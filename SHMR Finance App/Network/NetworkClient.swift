@@ -41,6 +41,7 @@ enum NetworkError: Error, LocalizedError {
 }
 
 struct NetworkClient {
+    // Тут нужно вставить свой токен для работы
     private var bearerToken = "Bearer <TOKEN>"
     private var baseUrl = "https://shmr-finance.ru/api/v1/"
     private let timeout: TimeInterval = 15.0
