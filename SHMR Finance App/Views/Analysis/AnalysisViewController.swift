@@ -89,7 +89,7 @@ class AnalysisViewController: UIViewController {
             let newEndDate = Calendar.current.date(byAdding: .second, value: -1, to: nextDay)!
             viewModel.endDate = newEndDate
         }
-        tableView.reloadData()
+        loadData()
     }
     
     private func updateEndDate(_ date: Date) {
@@ -98,7 +98,7 @@ class AnalysisViewController: UIViewController {
             let newStartDate = Calendar.current.startOfDay(for: date)
             viewModel.startDate = newStartDate
         }
-        tableView.reloadData()
+        loadData()
     }
     
     private func showSortPicker() {
