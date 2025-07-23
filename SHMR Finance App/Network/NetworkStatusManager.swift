@@ -11,6 +11,9 @@ class NetworkStatusManager: ObservableObject {
         setupNetworkMonitoring()
     }
     
+    // По какой-то причине симулятор не отслеживает возвращение в онлайн. Статус остаётся offline
+    // На телефоне такой проблемы нет. По возможности рекомендую проверять на нём
+    // Другой вариант - перезапускать приложение при вхоже в сеть и выходе их неё
     private func setupNetworkMonitoring() {
         monitor = NWPathMonitor()
         

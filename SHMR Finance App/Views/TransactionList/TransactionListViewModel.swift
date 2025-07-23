@@ -117,7 +117,7 @@ class TransactionItemViewModel {
             TransactionViewItem(
                 id: transaction.id,
                 transaction: transaction,
-                category: categoriesById[transaction.categoryId]!
+                category: categoriesById[transaction.categoryId]! // Возможен крэш. Необзодимо исправить
             )
         }
         

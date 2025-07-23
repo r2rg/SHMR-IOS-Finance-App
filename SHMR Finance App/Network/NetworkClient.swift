@@ -44,7 +44,7 @@ struct NetworkClient {
     // Тут нужно вставить свой токен для работы
     private var bearerToken = "Bearer <TOKEN>"
     private var baseUrl = "https://shmr-finance.ru/api/v1/"
-    private let timeout: TimeInterval = 15.0
+    private let timeout: TimeInterval = 20.0
     
     private var encoder: JSONEncoder = {
         let anEncoder = JSONEncoder()

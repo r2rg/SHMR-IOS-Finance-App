@@ -1,5 +1,6 @@
 import Foundation
 
+// Сервис подлежит пределыванию
 @MainActor
 final class TransactionsService {
     static let shared = TransactionsService()

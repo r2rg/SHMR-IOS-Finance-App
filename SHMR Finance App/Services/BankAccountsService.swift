@@ -4,6 +4,7 @@ extension Notification.Name {
     static let accountBalanceChanged = Notification.Name("accountBalanceChanged")
 }
 
+// Сервис подлежит пределыванию
 @MainActor
 final class BankAccountsService {
     static let shared = BankAccountsService()
