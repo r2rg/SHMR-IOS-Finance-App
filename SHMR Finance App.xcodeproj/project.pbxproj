@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5DA3D4112E343FB900AEBACC /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 5DA3D4102E343FB900AEBACC /* Lottie */; };
+		5DA3D4222E3445AD00AEBACC /* StartAnimation in Frameworks */ = {isa = PBXBuildFile; productRef = 5DA3D4212E3445AD00AEBACC /* StartAnimation */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,7 +46,25 @@
 		5DF25FEF2DFCED3A00FBC92A /* SHMR Finance AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SHMR Finance AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		5DA3D4142E3442B800AEBACC /* Exceptions for "StartAnimation" folder in "SHMR Finance App" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Package.swift,
+			);
+			target = 5DF25FD72DFCED3900FBC92A /* SHMR Finance App */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		5DA3D4122E34427100AEBACC /* StartAnimation */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				5DA3D4142E3442B800AEBACC /* Exceptions for "StartAnimation" folder in "SHMR Finance App" target */,
+			);
+			path = StartAnimation;
+			sourceTree = "<group>";
+		};
 		5DF25FDA2DFCED3900FBC92A /* SHMR Finance App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "SHMR Finance App";
@@ -69,7 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5DA3D4112E343FB900AEBACC /* Lottie in Frameworks */,
+				5DA3D4222E3445AD00AEBACC /* StartAnimation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +111,7 @@
 		5DF25FCF2DFCED3900FBC92A = {
 			isa = PBXGroup;
 			children = (
+				5DA3D4122E34427100AEBACC /* StartAnimation */,
 				5DF25FDA2DFCED3900FBC92A /* SHMR Finance App */,
 				5DF25FE82DFCED3A00FBC92A /* SHMR Finance AppTests */,
 				5DF25FF22DFCED3A00FBC92A /* SHMR Finance AppUITests */,
@@ -127,11 +146,12 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				5DA3D4122E34427100AEBACC /* StartAnimation */,
 				5DF25FDA2DFCED3900FBC92A /* SHMR Finance App */,
 			);
 			name = "SHMR Finance App";
 			packageProductDependencies = (
-				5DA3D4102E343FB900AEBACC /* Lottie */,
+				5DA3D4212E3445AD00AEBACC /* StartAnimation */,
 			);
 			productName = "SHMR Finance App";
 			productReference = 5DF25FD82DFCED3900FBC92A /* SHMR Finance App.app */;
@@ -217,7 +237,7 @@
 			mainGroup = 5DF25FCF2DFCED3900FBC92A;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				5DA3D40F2E343FB900AEBACC /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				5DA3D4202E3445AD00AEBACC /* XCLocalSwiftPackageReference "StartAnimation" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5DF25FD92DFCED3900FBC92A /* Products */;
@@ -589,22 +609,17 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		5DA3D40F2E343FB900AEBACC /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/airbnb/lottie-ios";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.5.2;
-			};
+/* Begin XCLocalSwiftPackageReference section */
+		5DA3D4202E3445AD00AEBACC /* XCLocalSwiftPackageReference "StartAnimation" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = StartAnimation;
 		};
-/* End XCRemoteSwiftPackageReference section */
+/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5DA3D4102E343FB900AEBACC /* Lottie */ = {
+		5DA3D4212E3445AD00AEBACC /* StartAnimation */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5DA3D40F2E343FB900AEBACC /* XCRemoteSwiftPackageReference "lottie-ios" */;
-			productName = Lottie;
+			productName = StartAnimation;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

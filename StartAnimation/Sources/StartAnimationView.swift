@@ -14,7 +14,7 @@ struct StartAnimationView: View {
     var body: some View {
         ZStack {
             
-            Color.lightGreen
+            Color.green.opacity(0.3)
                 .ignoresSafeArea()
             
             LottieView(animation: .named("StartScreen"))
