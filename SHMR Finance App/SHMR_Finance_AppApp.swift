@@ -10,6 +10,8 @@ import SwiftData
 
 @main
 struct SHMR_Finance_AppApp: App {
+    @State private var isStartAnimationcreenFinished = false
+    
     static let sharedModelContainer: ModelContainer = {
         let schema = Schema([
             TransactionModel.self,
@@ -24,7 +26,11 @@ struct SHMR_Finance_AppApp: App {
     }
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if isStartAnimationcreenFinished{
+                ContentView()
+            } else {
+                StartAnimationView(isFinished: $isStartAnimationcreenFinished)
+            }
         }
     }
 }
