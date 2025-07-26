@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5DA3D4222E3445AD00AEBACC /* StartAnimation in Frameworks */ = {isa = PBXBuildFile; productRef = 5DA3D4212E3445AD00AEBACC /* StartAnimation */; };
+		5DA3D55E2E344E8000AEBACC /* PieChart in Frameworks */ = {isa = PBXBuildFile; productRef = 5DA3D55D2E344E8000AEBACC /* PieChart */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DA3D55E2E344E8000AEBACC /* PieChart in Frameworks */,
 				5DA3D4222E3445AD00AEBACC /* StartAnimation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -108,6 +110,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5DA3D42B2E344D4200AEBACC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		5DF25FCF2DFCED3900FBC92A = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +124,7 @@
 				5DF25FDA2DFCED3900FBC92A /* SHMR Finance App */,
 				5DF25FE82DFCED3A00FBC92A /* SHMR Finance AppTests */,
 				5DF25FF22DFCED3A00FBC92A /* SHMR Finance AppUITests */,
+				5DA3D42B2E344D4200AEBACC /* Frameworks */,
 				5DF25FD92DFCED3900FBC92A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -152,6 +162,7 @@
 			name = "SHMR Finance App";
 			packageProductDependencies = (
 				5DA3D4212E3445AD00AEBACC /* StartAnimation */,
+				5DA3D55D2E344E8000AEBACC /* PieChart */,
 			);
 			productName = "SHMR Finance App";
 			productReference = 5DF25FD82DFCED3900FBC92A /* SHMR Finance App.app */;
@@ -238,6 +249,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				5DA3D4202E3445AD00AEBACC /* XCLocalSwiftPackageReference "StartAnimation" */,
+				5DA3D42E2E344D8900AEBACC /* XCLocalSwiftPackageReference "Utilities" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5DF25FD92DFCED3900FBC92A /* Products */;
@@ -614,12 +626,21 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = StartAnimation;
 		};
+		5DA3D42E2E344D8900AEBACC /* XCLocalSwiftPackageReference "Utilities" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Utilities;
+		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		5DA3D4212E3445AD00AEBACC /* StartAnimation */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = StartAnimation;
+		};
+		5DA3D55D2E344E8000AEBACC /* PieChart */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5DA3D42E2E344D8900AEBACC /* XCLocalSwiftPackageReference "Utilities" */;
+			productName = PieChart;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
