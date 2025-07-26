@@ -4,10 +4,15 @@
 //
 //  Created by Артур Галустян on 15.07.2025.
 //
-
 import SwiftUI
 
 extension AccountView {
+    struct DailyBalance: Identifiable, Equatable {
+        let id = UUID()
+        let date: Date
+        var balance: Decimal
+    }
+    
     @Observable
     class ViewModel {
         var editing = false
@@ -31,8 +36,68 @@ extension AccountView {
         }
 
         var bankAccountService = BankAccountsService.shared
+        private var transactionsService = TransactionsService.shared
+        private var categoriesService = CategoriesService.shared
+        
         var isLoading: Bool = false
         var errorMessage: String? = nil
+        
+        var dailyBalances: [DailyBalance] = []
+        var selectedBalanceData: DailyBalance?
+        
+        
+        // --- ЛОГИКА ПОЛНОСТЬЮ ПЕРЕРАБОТАНА ---
+        func calculateBalanceHistory() async {
+            guard let account = account else { return }
+
+            let calendar = Calendar.current
+            let endDate = Date()
+            guard let startDate = calendar.date(byAdding: .day, value: -29, to: endDate) else { return }
+
+            do {
+                let transactions = try await transactionsService.getTransactions(accountId: account.id, from: startDate, to: endDate)
+                let categories = try await categoriesService.allCategories()
+                
+                let categoryDirections = Dictionary(uniqueKeysWithValues: categories.map { ($0.id, $0.direction) })
+                
+                var dailyNetChange = [Date: Decimal]()
+                for transaction in transactions {
+                    let day = calendar.startOfDay(for: transaction.transactionDate)
+                    
+                    if let direction = categoryDirections[transaction.categoryId] {
+                        let signedAmount = (direction == .outcome) ? -transaction.amount : transaction.amount
+                        dailyNetChange[day, default: 0] += signedAmount
+                    } else {
+                        print("Warning: Category with ID \(transaction.categoryId) not found.")
+                    }
+                }
+
+                var finalBalances = [DailyBalance]()
+                var runningBalance = account.balance
+                
+                for i in 0..<30 {
+                    let day = calendar.startOfDay(for: calendar.date(byAdding: .day, value: -i, to: endDate)!)
+                    
+                    if i > 0 {
+                        let nextDay = calendar.date(byAdding: .day, value: 1, to: day)!
+                        runningBalance -= dailyNetChange[nextDay] ?? 0
+                    }
+                    
+                    finalBalances.append(DailyBalance(date: day, balance: runningBalance))
+                }
+                
+                self.dailyBalances = finalBalances.reversed()
+                
+            } catch {
+                await MainActor.run {
+                    self.errorMessage = "Не удалось загрузить историю транзакций: \(error.localizedDescription)"
+                }
+            }
+        }
+        
+        func showPopover(for data: DailyBalance) {
+            self.selectedBalanceData = data
+        }
         
         func processedBalance() -> String {
             return formattedBalanceString(for: account?.balance) + " " + (account?.currency ?? "")
@@ -43,6 +108,7 @@ extension AccountView {
             errorMessage = nil
             do {
                 account = try await bankAccountService.getFirstAccount()
+                await calculateBalanceHistory()
             } catch {
                 errorMessage = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
             }
@@ -64,6 +130,7 @@ extension AccountView {
                             updatedAt: Date()
                         )
                         account = updatedAccount
+                        await calculateBalanceHistory()
                     }
                 } catch {
                     print("Error refreshing account balance: \(error)")
@@ -77,11 +144,9 @@ extension AccountView {
             formatter.numberStyle = .decimal
             formatter.minimumFractionDigits = 2
             formatter.maximumFractionDigits = 2
-            return formatter.string(from: balance as NSDecimalNumber) ?? ""
+            return (formatter.string(from: balance as NSDecimalNumber) ?? "") + " " + (account?.currency ?? "")
         }
-
         
-        // Тут проверка ввода. Когда что-то вставляется из буфера обмена и сохраняется, все лишние символы будут отфильтрованы
         func sanitize(decimalString: String) -> String {
             var hasFoundSeparator = false
             let filtered = decimalString.filter { char in
@@ -93,11 +158,7 @@ extension AccountView {
                 return false
             }
             let localeSeparator = Locale.current.decimalSeparator ?? "."
-            if localeSeparator == "," {
-                return filtered.replacingOccurrences(of: ".", with: ",")
-            } else {
-                return filtered.replacingOccurrences(of: ",", with: ".")
-            }
+            return localeSeparator == "," ? filtered.replacingOccurrences(of: ".", with: ",") : filtered.replacingOccurrences(of: ",", with: ".")
         }
         
         func sanitizedBalance() {
@@ -138,5 +199,11 @@ extension AccountView {
                 }
             }
         }
+    }
+}
+
+extension Decimal {
+    var doubleValue: Double {
+        return NSDecimalNumber(decimal: self).doubleValue
     }
 }
