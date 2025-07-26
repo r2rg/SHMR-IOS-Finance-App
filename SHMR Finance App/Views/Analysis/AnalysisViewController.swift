@@ -10,12 +10,16 @@
 
 import UIKit
 import SwiftUI
+import PieChart
 
 class AnalysisViewController: UIViewController {
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
     private let viewModel = TransactionItemViewModel()
     private let direction: Direction
     private var loadingOverlay: UIView?
+    
+    private var pieChartView: PieChartView!
+    private let sectionHeaderContainer = UIView()
     
     init(direction: Direction) {
         self.direction = direction
@@ -29,6 +33,30 @@ class AnalysisViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        pieChartView = PieChartView()
+        pieChartView.translatesAutoresizingMaskIntoConstraints = false
+
+        let operationsLabel = UILabel()
+        operationsLabel.text = "ОПЕРАЦИИ"
+        operationsLabel.font = .systemFont(ofSize: 14, weight: .regular)
+        operationsLabel.textColor = .systemGray
+        operationsLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        sectionHeaderContainer.addSubview(pieChartView)
+        sectionHeaderContainer.addSubview(operationsLabel)
+        
+        NSLayoutConstraint.activate([
+            pieChartView.topAnchor.constraint(equalTo: sectionHeaderContainer.topAnchor, constant: 16),
+            pieChartView.centerXAnchor.constraint(equalTo: sectionHeaderContainer.centerXAnchor),
+            pieChartView.widthAnchor.constraint(equalToConstant: 220),
+            pieChartView.heightAnchor.constraint(equalToConstant: 220),
+            
+            operationsLabel.topAnchor.constraint(equalTo: pieChartView.bottomAnchor, constant: 24),
+            operationsLabel.leadingAnchor.constraint(equalTo: sectionHeaderContainer.leadingAnchor, constant: 20),
+            operationsLabel.trailingAnchor.constraint(equalTo: sectionHeaderContainer.trailingAnchor, constant: -20),
+            operationsLabel.bottomAnchor.constraint(equalTo: sectionHeaderContainer.bottomAnchor, constant: -8)
+        ])
+        
         loadData()
     }
     
@@ -36,6 +64,7 @@ class AnalysisViewController: UIViewController {
         view.backgroundColor = .systemGroupedBackground
         setupTableView()
     }
+    
     
     private func setupTableView() {
         tableView.backgroundColor = .systemGroupedBackground
@@ -64,6 +93,19 @@ class AnalysisViewController: UIViewController {
                 try await viewModel.loadTransactions(for: direction)
                 await viewModel.getCurrency()
                 await MainActor.run {
+                    let groupedByCategory = Dictionary(grouping: viewModel.displayedTransactions, by: { $0.category.name })
+                        .mapValues { items in items.reduce(Decimal(0)) { $0 + $1.transaction.amount } }
+
+                    let entities = groupedByCategory.map { element in
+                        PieChartEntity(value: element.value, label: element.key)
+                    }
+                    
+                    if pieChartView.superview == nil {
+                        pieChartView.entities = entities
+                    } else {
+                        pieChartView.animateUpdate(to: entities)
+                    }
+                    
                     self.tableView.reloadData()
                     self.setLoading(false)
                 }
@@ -124,12 +166,7 @@ class AnalysisViewController: UIViewController {
             transaction: transaction,
             onDismiss: { [weak self] in
                 guard let self = self else { return }
-                Task {
-                    try? await self.viewModel.loadTransactions(for: self.direction)
-                    await MainActor.run {
-                        self.tableView.reloadData()
-                    }
-                }
+                self.loadData()
             }
         )
         let hostingController = UIHostingController(rootView: editView)
@@ -202,31 +239,14 @@ extension AnalysisViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return section == 1 ? createSectionHeader() : nil
+        return section == 1 ? sectionHeaderContainer : nil
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 1 ? 32 : 0
-    }
-    
-    private func createSectionHeader() -> UIView {
-        let container = UIView()
-        container.backgroundColor = .clear
-        
-        let label = UILabel()
-        label.text = "ОПЕРАЦИИ"
-        label.font = .systemFont(ofSize: 14, weight: .regular)
-        label.textColor = .systemGray
-        label.textAlignment = .left
-        label.translatesAutoresizingMaskIntoConstraints = false
-        container.addSubview(label)
-        
-        NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 20),
-            label.centerYAnchor.constraint(equalTo: container.centerYAnchor)
-        ])
-        
-        return container
+        if section == 1 {
+            return 285
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -239,7 +259,7 @@ extension AnalysisViewController: UITableViewDelegate, UITableViewDataSource {
                 sum: "\(viewModel.getSum()) \(viewModel.currency)",
                 onStartDate: { [weak self] date in self?.updateStartDate(date) },
                 onEndDate: { [weak self] date in self?.updateEndDate(date) },
-                onSort: { [weak self] in self?.showSortPicker() }
+                onSort: { [weak self] in self?.showSortPicker() } 
             )
             cell.backgroundColor = .clear
             cell.selectionStyle = .none
@@ -254,9 +274,9 @@ extension AnalysisViewController: UITableViewDelegate, UITableViewDataSource {
             let isLast = indexPath.row == viewModel.displayedTransactions.count - 1
             
             cell.configure(
-                transaction: transaction, 
-                direction: direction, 
-                currency: viewModel.currency, 
+                transaction: transaction,
+                direction: direction,
+                currency: viewModel.currency,
                 percentage: percent,
                 isFirst: isFirst,
                 isLast: isLast
@@ -563,7 +583,7 @@ class AnalysisHeaderCell: UITableViewCell {
         
         stack.addArrangedSubview(sortRow)
     }
-    
+
     private func addSumRow(sum: String) {
         sumRow.subviews.forEach { $0.removeFromSuperview() }
         

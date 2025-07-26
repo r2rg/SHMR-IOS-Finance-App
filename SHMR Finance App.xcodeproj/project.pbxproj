@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		5DA3D4222E3445AD00AEBACC /* StartAnimation in Frameworks */ = {isa = PBXBuildFile; productRef = 5DA3D4212E3445AD00AEBACC /* StartAnimation */; };
+		5DA3D55E2E344E8000AEBACC /* PieChart in Frameworks */ = {isa = PBXBuildFile; productRef = 5DA3D55D2E344E8000AEBACC /* PieChart */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		5DF25FE62DFCED3A00FBC92A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -23,13 +28,44 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		5D6A4DDB2E342E6B0046343F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		5DF25FD82DFCED3900FBC92A /* SHMR Finance App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SHMR Finance App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DF25FE52DFCED3A00FBC92A /* SHMR Finance AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SHMR Finance AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DF25FEF2DFCED3A00FBC92A /* SHMR Finance AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SHMR Finance AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		5DA3D4142E3442B800AEBACC /* Exceptions for "StartAnimation" folder in "SHMR Finance App" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Package.swift,
+			);
+			target = 5DF25FD72DFCED3900FBC92A /* SHMR Finance App */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		5DA3D4122E34427100AEBACC /* StartAnimation */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				5DA3D4142E3442B800AEBACC /* Exceptions for "StartAnimation" folder in "SHMR Finance App" target */,
+			);
+			path = StartAnimation;
+			sourceTree = "<group>";
+		};
 		5DF25FDA2DFCED3900FBC92A /* SHMR Finance App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "SHMR Finance App";
@@ -52,6 +88,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DA3D55E2E344E8000AEBACC /* PieChart in Frameworks */,
+				5DA3D4222E3445AD00AEBACC /* StartAnimation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,12 +110,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5DA3D42B2E344D4200AEBACC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		5DF25FCF2DFCED3900FBC92A = {
 			isa = PBXGroup;
 			children = (
+				5DA3D4122E34427100AEBACC /* StartAnimation */,
 				5DF25FDA2DFCED3900FBC92A /* SHMR Finance App */,
 				5DF25FE82DFCED3A00FBC92A /* SHMR Finance AppTests */,
 				5DF25FF22DFCED3A00FBC92A /* SHMR Finance AppUITests */,
+				5DA3D42B2E344D4200AEBACC /* Frameworks */,
 				5DF25FD92DFCED3900FBC92A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -102,16 +149,20 @@
 				5DF25FD42DFCED3900FBC92A /* Sources */,
 				5DF25FD52DFCED3900FBC92A /* Frameworks */,
 				5DF25FD62DFCED3900FBC92A /* Resources */,
+				5D6A4DDB2E342E6B0046343F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				5DA3D4122E34427100AEBACC /* StartAnimation */,
 				5DF25FDA2DFCED3900FBC92A /* SHMR Finance App */,
 			);
 			name = "SHMR Finance App";
 			packageProductDependencies = (
+				5DA3D4212E3445AD00AEBACC /* StartAnimation */,
+				5DA3D55D2E344E8000AEBACC /* PieChart */,
 			);
 			productName = "SHMR Finance App";
 			productReference = 5DF25FD82DFCED3900FBC92A /* SHMR Finance App.app */;
@@ -196,6 +247,10 @@
 			);
 			mainGroup = 5DF25FCF2DFCED3900FBC92A;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				5DA3D4202E3445AD00AEBACC /* XCLocalSwiftPackageReference "StartAnimation" */,
+				5DA3D42E2E344D8900AEBACC /* XCLocalSwiftPackageReference "Utilities" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5DF25FD92DFCED3900FBC92A /* Products */;
 			projectDirPath = "";
@@ -565,6 +620,29 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		5DA3D4202E3445AD00AEBACC /* XCLocalSwiftPackageReference "StartAnimation" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = StartAnimation;
+		};
+		5DA3D42E2E344D8900AEBACC /* XCLocalSwiftPackageReference "Utilities" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Utilities;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5DA3D4212E3445AD00AEBACC /* StartAnimation */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = StartAnimation;
+		};
+		5DA3D55D2E344E8000AEBACC /* PieChart */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5DA3D42E2E344D8900AEBACC /* XCLocalSwiftPackageReference "Utilities" */;
+			productName = PieChart;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5DF25FD02DFCED3900FBC92A /* Project object */;
 }
